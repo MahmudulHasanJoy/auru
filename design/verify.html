@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AURU — Officer Verification</title>
+<link rel="stylesheet" href="system.css">
+</head>
+<body>
+<nav class="navbar">
+  <div class="navbar-inner">
+    <div class="navbar-brand">AURU</div>
+    <div class="navbar-links">
+      <a href="vault.html">Vault</a>
+      <a href="login.html">Officer / Admin Login</a>
+    </div>
+  </div>
+</nav>
+
+<div class="container stack">
+  <div class="card">
+    <h2>AURU — Officer Document Verification</h2>
+    <p class="small">Enter the verification code printed on the student’s document to confirm authenticity.</p>
+    <form id="verifyForm" novalidate>
+      <div class="form-group">
+        <label class="form-label" for="code">Verification Code</label>
+        <input class="form-input" id="code" type="text" placeholder="AURU-7f2a9b1c" pattern="AURU-[0-9a-f]{12}" maxlength="18" required autocomplete="off">
+      </div>
+      <button class="btn" type="submit">Verify Document</button>
+    </form>
+
+    <div id="result" style="display:none;margin-top:var(--space-6);padding:var(--space-4);border:1px solid var(--color-border);border-radius:var(--radius-lg);background:var(--color-surface);">
+      <h3 style="margin-top:0;">Verification Result</h3>
+      <table class="table" style="margin-top:var(--space-3);">
+        <tbody>
+          <tr><th style="width:40%">Student</th><td>Rahim Uddin (2025-101)</td></tr>
+          <tr><th>Document</th><td>HSC Transcript 2017</td></tr>
+          <tr><th>Category</th><td>transcript</td></tr>
+          <tr><th>Verification Code</th><td><code>AURU-7f2a9b1c</code></td></tr>
+          <tr><th>Status</th><td><span class="badge badge--verified">✅ Verified &amp; Authentic</span></td></tr>
+          <tr><th>Uploaded</th><td>2026-11-10 14:02:15</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p id="notFound" class="small" style="color:var(--color-danger);display:none;">No document found with that verification code.</p>
+  </div>
+</div>
+
+<script>
+document.getElementById('verifyForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  const code = document.getElementById('code').value.trim();
+  const result = document.getElementById('result');
+  const notFound = document.getElementById('notFound');
+
+  if (/^AURU-[0-9a-f]{12}$/.test(code)) {
+    notFound.style.display = 'none';
+    result.style.display = 'block';
+    result.scrollIntoView({behavior:'smooth'});
+  } else {
+    result.style.display = 'none';
+    notFound.style.display = 'block';
+    notFound.scrollIntoView({behavior:'smooth'});
+  }
+});
+</script>
+</body>
+</html>

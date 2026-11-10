@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>AURU — Admin Verification Queue</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<nav>
+    <a href="vault.html">Vault</a> |
+    <a href="login.html">Log out</a>
+    <span>Admin: Admin User</span>
+</nav>
+<div class="card">
+    <h2>Admin — Document Verification Queue</h2>
+    <table>
+        <tr>
+            <th>Student</th>
+            <th>Document</th>
+            <th>Category</th>
+            <th>Code</th>
+            <th>Action</th>
+        </tr>
+        <tr>
+            <td>Rahim Uddin</td>
+            <td>HSC Transcript 2017</td>
+            <td>transcript</td>
+            <td><code>AURU-7f2a9b1c</code></td>
+            <td>
+                <form method="post" style="display:inline" onsubmit="return confirm('Are you sure?')">
+                    <input type="hidden" name="doc_id" value="1">
+                    <button type="submit" name="action" value="verify" class="btn-verify">Verify</button>
+                    <button type="submit" name="action" value="reject" class="btn-reject">Reject</button>
+                </form>
+            </td>
+        </tr>
+        <tr>
+            <td>Aurin Subah</td>
+            <td>National ID (NID)</td>
+            <td>nid</td>
+            <td><code>AURU-e4d909c7</td>
+            <td>
+                <form method="post" style="display:inline" onsubmit="return confirm('Are you sure?')">
+                    <input type="hidden" name="doc_id" value="2">
+                    <button type="submit" name="action" value="verify" class="btn-verify">Verify</button>
+                    <button type="submit" name="action" value="reject" class="btn-reject">Reject</button>
+                </form>
+            </td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

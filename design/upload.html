@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AURU — Upload Document</title>
+<link rel="stylesheet" href="system.css">
+</head>
+<body>
+<nav class="navbar">
+  <div class="navbar-inner">
+    <div class="navbar-brand">AURU</div>
+    <div class="navbar-links">
+      <a href="vault.html">Back to Vault</a>
+      <a href="login.html">Log out</a>
+    </div>
+  </div>
+</nav>
+
+<div class="container stack">
+  <div class="card">
+    <h2>Upload Document</h2>
+    <form id="uploadForm" novalidate>
+      <div class="form-group">
+        <label class="form-label" for="title">Document Title</label>
+        <input class="form-input" id="title" type="text" placeholder="HSC Transcript 2017" required maxlength="200">
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="category">Category</label>
+        <select class="form-select" id="category" required>
+          <option value="">Select Category</option>
+          <option value="transcript">Transcript</option>
+          <option value="certificate">Certificate</option>
+          <option value="nid">National ID (NID)</option>
+          <option value="driving_license">Driving License</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="document">File</label>
+        <div class="file-input" onclick="document.getElementById('document').click()">
+          <span>Choose file</span>
+          <span class="file-hint">Allowed: PDF, JPG, PNG • Max 5 MB</span>
+          <input class="form-input" id="document" type="file" accept=".pdf,.jpg,.jpeg,.png" required>
+        </div>
+      </div>
+      <button class="btn" type="submit">Upload to Vault</button>
+    </form>
+  </div>
+</div>
+
+<script>
+const fileInput = document.getElementById('document');
+const fileLabel = fileInput.parentElement.querySelector('span');
+fileInput.addEventListener('change', function(){
+  if (this.files.length) {
+    fileLabel.textContent = this.files[0].name;
+  }
+});
+
+document.getElementById('uploadForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  const btn = this.querySelector('button');
+  btn.textContent = 'Uploading…';
+  btn.disabled = true;
+  setTimeout(()=>{
+    btn.textContent = 'Uploaded';
+    setTimeout(()=> window.location.href = 'vault.html', 800);
+  }, 1200);
+});
+</script>
+</body>
+</html>

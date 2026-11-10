@@ -1,0 +1,38 @@
+# AURU Web Root Security Headers & Access Rules
+# Prevent direct execution of PHP in unexpected directories
+# Block access to sensitive files
+
+<IfModule mod_headers.c>
+    # Prevent clickjacking
+    Header always set X-Frame-Options "DENY"
+    # Prevent MIME-type sniffing
+    Header always set X-Content-Type-Options "nosniff"
+    # Referrer policy
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    # Content Security Policy — restrictive for this course project
+    Header always set Content-Security-Policy "default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self'; img-src 'self' data:; form-action 'self'; base-uri 'self';"
+    # Remove server signature tokens where possible
+    Header always unset X-Powered-By
+</IfModule>
+
+<IfModule mod_php.c>
+    php_flag engine off
+</IfModule>
+
+# Deny access to hidden files and dotfiles
+<FilesMatch "^\.">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Deny access to .htaccess and .htpasswd
+<Files ~ "^\.ht">
+    Order allow,deny
+    Deny from all
+</Files>
+
+# Deny direct access to config, SQL, and schema files
+<FilesMatch "^(config|schema|.*\.sql|.*\.md|.*\.log)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>

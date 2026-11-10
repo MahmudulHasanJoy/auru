@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>AURU — My Vault</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<nav>
+    <a href="vault.html">Vault</a> |
+    <a href="upload.html">Upload</a> |
+    <a href="verify.html">Verify Document</a> |
+    <a href="login.html">Log out</a>
+    <span>Rahim Uddin &bull; Student</span>
+</nav>
+<div class="card">
+    <h2>My Vault</h2>
+    <p class="success">Document uploaded successfully.</p>
+    <a class="btn" href="upload.html">+ Upload New Document</a>
+    <table>
+        <tr>
+            <th>Title</th>
+            <th>Category</th>
+            <th>Status</th>
+            <th>Verification Code</th>
+            <th>Download</th>
+            <th>Delete</th>
+        </tr>
+        <tr>
+            <td>HSC Transcript 2017</td>
+            <td>transcript</td>
+            <td>verified</td>
+            <td><code>AURU-7f2a9b1c</code></td>
+            <td><a class="btn" href="#">Download</a></td>
+            <td>
+                <form method="post" action="#" style="display:inline" onsubmit="return confirm('Delete this document permanently?')">
+                    <input type="hidden" name="doc_id" value="1">
+                    <button type="submit" class="btn-delete">Delete</button>
+                </form>
+            </td>
+        </tr>
+        <tr>
+            <td>National ID (NID)</td>
+            <td>nid</td>
+            <td>pending</td>
+            <td><code>AURU-e4d909c7</code></td>
+            <td><a class="btn" href="#">Download</a></td>
+            <td>
+                <form method="post" action="#" style="display:inline" onsubmit="return confirm('Delete this document permanently?')">
+                    <input type="hidden" name="doc_id" value="2">
+                    <button type="submit" class="btn-delete">Delete</button>
+                </form>
+            </td>
+        </tr>
+        <tr>
+            <td>Driving License</td>
+            <td>driving_license</td>
+            <td>rejected</td>
+            <td><code>AURU-a1b2c3d4</code></td>
+            <td><a class="btn" href="#">Download</a></td>
+            <td>
+                <form method="post" action="#" style="display:inline" onsubmit="return confirm('Delete this document permanently?')">
+                    <input type="hidden" name="doc_id" value="3">
+                    <button type="submit" class="btn-delete">Delete</button>
+                </form>
+            </td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

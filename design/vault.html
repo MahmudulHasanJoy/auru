@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AURU — My Vault</title>
+<link rel="stylesheet" href="system.css">
+</head>
+<body>
+<nav class="navbar">
+  <div class="navbar-inner">
+    <div class="navbar-brand">AURU</div>
+    <div class="navbar-links">
+      <a href="vault.html" style="background:var(--color-accent-soft);color:var(--color-accent);font-weight:600;text-decoration:none;border-radius:var(--radius-sm);">Vault</a>
+      <a href="upload.html">Upload</a>
+      <a href="verify.html">Verify Document</a>
+      <a href="login.html">Log out</a>
+    </div>
+    <div class="navbar-user">Rahim Uddin • Student</div>
+  </div>
+</nav>
+
+<div class="container stack">
+  <div class="card">
+    <h2>My Vault</h2>
+    <div class="alert alert--success" style="margin-bottom:0;">Document uploaded successfully.</div>
+    <a class="btn" href="upload.html" style="margin-bottom:var(--space-4);">+ Upload New Document</a>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th style="width:30%">Title</th>
+          <th style="width:18%">Category</th>
+          <th style="width:16%">Status</th>
+          <th style="width:24%">Verification Code</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>HSC Transcript 2017</td>
+          <td>transcript</td>
+          <td><span class="badge badge--verified">verified</span></td>
+          <td><code>AURU-7f2a9b1c</code></td>
+          <td>
+            <div class="btn-group" style="gap:var(--space-1);">
+              <button class="btn btn-sm btn-outline" onclick="openViewer('HSC Transcript 2017', 'view.php?id=1')">View</button>
+              <a class="btn btn-sm" href="#">Download</a>
+              <button class="btn btn-sm btn-danger" onclick="return confirm('Delete this document permanently?')">Delete</button>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>National ID (NID)</td>
+          <td>nid</td>
+          <td><span class="badge badge--pending">pending</span></td>
+          <td><code>AURU-e4d909c7</code></td>
+          <td>
+            <div class="btn-group" style="gap:var(--space-1);">
+              <button class="btn btn-sm btn-outline" onclick="openViewer('National ID (NID)', 'view.php?id=2')">View</button>
+              <a class="btn btn-sm" href="#">Download</a>
+              <button class="btn btn-sm btn-danger" onclick="return confirm('Delete this document permanently?')">Delete</button>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>Driving License</td>
+          <td>driving_license</td>
+          <td><span class="badge badge--rejected">rejected</span></td>
+          <td><code>AURU-a1b2c3d4</code></td>
+          <td>
+            <div class="btn-group" style="gap:var(--space-1);">
+              <button class="btn btn-sm btn-outline" onclick="openViewer('Driving License', 'view.php?id=3')">View</button>
+              <a class="btn btn-sm" href="#">Download</a>
+              <button class="btn btn-sm btn-danger" onclick="return confirm('Delete this document permanently?')">Delete</button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="viewer-overlay" id="viewerOverlay">
+  <div class="viewer-modal">
+    <div class="viewer-header">
+      <h3 class="viewer-title" id="viewerTitle">Document</h3>
+      <button class="btn btn-sm btn-outline" onclick="closeViewer()" style="padding:var(--space-2) var(--space-3);font-size:var(--text-sm);">Close</button>
+    </div>
+    <div class="viewer-body">
+      <iframe class="viewer-frame" id="viewerFrame" src="" title="Document preview"></iframe>
+    </div>
+    <div class="viewer-actions">
+      <a class="btn" id="viewerDownload" href="#" target="_blank">Download</a>
+    </div>
+  </div>
+</div>
+
+<script>
+function openViewer(title, src) {
+  document.getElementById('viewerTitle').textContent = title;
+  document.getElementById('viewerFrame').src = src;
+  document.getElementById('viewerOverlay').classList.add('open');
+  // Set download link to same src
+  document.getElementById('viewerDownload').href = src.replace('view.php', 'download.php');
+}
+
+function closeViewer() {
+  document.getElementById('viewerOverlay').classList.remove('open');
+  document.getElementById('viewerFrame').src = '';
+}
+
+// Close on overlay click
+document.getElementById('viewerOverlay').addEventListener('click', function(e){
+  if (e.target === this) closeViewer();
+});
+
+// Close on Escape
+document.addEventListener('keydown', function(e){
+  if (e.key === 'Escape') closeViewer();
+});
+</script>
+</body>
+</html>

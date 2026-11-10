@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>AURU — Register</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<nav>
+    <a href="login.html">Login</a> |
+    <a href="register.html">Register</a> |
+    <a href="verify.html">Verify Document</a>
+    <span>Preview Mode</span>
+</nav>
+<div class="card">
+    <h2>AURU — Register</h2>
+    <form method="post" novalidate>
+        <input type="text" name="full_name" placeholder="Full Name" required minlength="2" maxlength="100">
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="text" name="student_id" placeholder="Student ID (optional)">
+        <input type="password" name="password" placeholder="Password (min 8 chars, 1 uppercase, 1 number)" required minlength="8">
+        <button type="submit">Create Account</button>
+    </form>
+    <p>Already have an account? <a href="login.html">Log in</a></p>
+</div>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>AURU — Officer Verification</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<nav>
+    <a href="vault.html">Vault</a> |
+    <a href="login.html">Officer / Admin Login</a>
+</nav>
+<div class="card">
+    <h2>AURU — Officer Document Verification</h2>
+    <p class="hint">Enter the verification code printed on the student's document to confirm authenticity.</p>
+    <form method="post" novalidate>
+        <input type="text" name="verification_code" placeholder="e.g. AURU-7f2a9b1c" pattern="AURU-[0-9a-f]{12}" maxlength="18" required autocomplete="off">
+        <button type="submit">Verify Document</button>
+    </form>
+
+    <hr>
+    <h3>Verification Result</h3>
+    <table class="result-table">
+        <tr><th>Student</th><td>Rahim Uddin (2025-101)</td></tr>
+        <tr><th>Document</th><td>HSC Transcript 2017</td></tr>
+        <tr><th>Category</th><td>transcript</td></tr>
+        <tr><th>Verification Code</th><td><code>AURU-7f2a9b1c</code></td></tr>
+        <tr><th>Status</th>
+            <td>
+                <span class="badge verified">✅ Verified &amp; Authentic</span>
+            </td>
+        </tr>
+        <tr><th>Uploaded</th><td>2026-11-10 14:02:15</td></tr>
+    </table>
+</div>
+</body>
+</html>
