@@ -52,36 +52,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if ($mime !== $allowedMimes[$ext]) {
                 $error = "File type does not match extension.";
             } else {
-                $stored = uniqid('doc_', true) . '.' . $ext;
-                $path   = '/var/www/html/auru/uploads/' . $stored;
+                // Read file as raw binary bits — nothing saved to disk
+                $fileData = file_get_contents($file['tmp_name']);
 
-                if (move_uploaded_file($file['tmp_name'], $path)) {
-                    // Make file unreadable by web server directly (handled by .htaccess too)
-                    chmod($path, 0640);
+                $code = 'AURU-' . bin2hex(random_bytes(6));
+                $stmt = $pdo->prepare("INSERT INTO documents
+                    (user_id, title, category, original_name, file_type, file_size, file_data, verification_code)
+                    VALUES (?,?,?,?,?,?,?,?)");
+                $stmt->execute([
+                    $_SESSION['user_id'],
+                    $title,
+                    $category,
+                    auru_escape($origName),
+                    $mime,
+                    (int)$file['size'],
+                    $fileData,   // binary BLOB stored in MySQL
+                    $code
+                ]);
 
-                    $code = 'AURU-' . bin2hex(random_bytes(6));
-                    $stmt = $pdo->prepare("INSERT INTO documents
-                        (user_id, title, category, original_name, stored_name, file_path, file_type, file_size, verification_code)
-                        VALUES (?,?,?,?,?,?,?,?,?)");
-                    $stmt->execute([
-                        $_SESSION['user_id'],
-                        $title,
-                        $category,
-                        auru_escape($origName),
-                        $stored,
-                        $path,
-                        $mime,
-                        (int)$file['size'],
-                        $code
-                    ]);
-
-                    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
-                    header('Location: vault.php?uploaded=1');
-                    exit;
-                } else {
-                    error_log("AURU upload: move_uploaded_file failed for " . auru_escape($origName));
-                    $error = "Upload failed. Please try again.";
-                }
+                $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+                header('Location: vault.php?uploaded=1');
+                exit;
             }
         }
     }

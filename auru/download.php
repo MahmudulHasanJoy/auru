@@ -26,22 +26,15 @@ if (!$doc) {
     die("Access denied.");
 }
 
-$filePath = $doc['file_path'];
-if (!is_file($filePath) || !is_readable($filePath)) {
-    error_log("AURU download: missing file " . $filePath);
-    http_response_code(404);
-    die("File not found.");
-}
-
-// Security headers before streaming
+// Serve binary bits directly from database
 header('Content-Description: File Transfer');
-header('Content-Type: application/octet-stream');
+header('Content-Type: ' . $doc['file_type']);
 header('Content-Disposition: attachment; filename="' . auru_escape($doc['original_name']) . '"');
-header('Content-Length: ' . filesize($filePath));
+header('Content-Length: ' . strlen($doc['file_data']));
 header('Cache-Control: no-store, no-cache, must-revalidate');
 header('Pragma: no-cache');
 header('X-Content-Type-Options: nosniff');
 header('X-Frame-Options: DENY');
 
-readfile($filePath);
+echo $doc['file_data'];
 exit;

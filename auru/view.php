@@ -25,23 +25,13 @@ if (!$doc) {
     die("Access denied.");
 }
 
-$filePath = $doc['file_path'];
-if (!is_file($filePath) || !is_readable($filePath)) {
-    error_log("AURU view: missing file " . $filePath);
-    http_response_code(404);
-    die("File not found.");
-}
-
 // Serve inline so browser renders PDFs/images instead of downloading
-$finfo = new finfo(FILEINFO_MIME_TYPE);
-$mime = $finfo->file($filePath);
-
-header('Content-Type: ' . $mime);
+header('Content-Type: ' . $doc['file_type']);
 header('Content-Disposition: inline; filename="' . auru_escape($doc['original_name']) . '"');
-header('Content-Length: ' . filesize($filePath));
+header('Content-Length: ' . strlen($doc['file_data']));
 header('Cache-Control: private, max-age=3600');
 header('X-Content-Type-Options: nosniff');
 header('X-Frame-Options: SAMEORIGIN'); // allow same-origin iframe embedding
 
-readfile($filePath);
+echo $doc['file_data'];
 exit;
